@@ -15,6 +15,10 @@ import { AlertifyService } from './_services/alertify.service';
 import { appRoutes } from './routes';
 import { MessagesComponent } from './messages/messages.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { UserService } from './_services/user.service';
+import { BusinessListComponent } from './business/business-list/business-list.component';
+import { BusinessService } from './_services/business.service';
+import { BusinessCardComponent } from './business/business-card/business-card.component';
 
 @NgModule({
    declarations: [
@@ -22,7 +26,9 @@ import { AuthGuard } from './_guards/auth.guard';
       NavComponent,
       HomeComponent,
       RegisterComponent,
-      MessagesComponent
+      MessagesComponent,
+      BusinessListComponent,
+      BusinessCardComponent
    ],
    imports: [
       BrowserModule,
@@ -35,7 +41,9 @@ import { AuthGuard } from './_guards/auth.guard';
       AuthService,
       ErrorInterceptorProvider,
       AlertifyService,
-      AuthGuard
+      AuthGuard,
+      UserService,
+      BusinessService
    ],
    bootstrap: [
       AppComponent

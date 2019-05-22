@@ -23,9 +23,35 @@ namespace BusinessApp.API.Data
             _context.Remove(entity);
         }
 
+        public async Task<Business> GetBusiness(int id)
+        {
+            var business = await _context.Businesses
+                                    .Include(p => p.Photos)
+                                    .FirstOrDefaultAsync(b => b.Id == id);
+            
+            return business;
+        }
+
+        public async Task<IEnumerable<Business>> GetBusinesses()
+        {
+            var businesses = await _context.Businesses
+                                        .Include(p => p.Photos)
+                                        .ToListAsync();
+
+            return businesses;
+        }
+
+        public async Task<Photo> GetPhoto(int id)
+        {
+            var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
+
+            return photo;
+        }
+
         public async Task<User> GetUser(int id)
         {
             var user = await _context.Users
+                                .Include(p => p.Photo)
                                 .Include(b => b.Businesses)
                                 .ThenInclude(p => p.Photos)
                                 .FirstOrDefaultAsync(u => u.Id == id);
@@ -36,6 +62,7 @@ namespace BusinessApp.API.Data
         public async Task<IEnumerable<User>> GetUsers()
         {
             var users = await _context.Users
+                                    .Include(p => p.Photo)
                                     .Include(b => b.Businesses)
                                     .ThenInclude(p => p.Photos)
                                     .ToListAsync();

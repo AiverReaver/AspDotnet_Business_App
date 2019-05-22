@@ -11,5 +11,8 @@ namespace BusinessApp.API.Data
         Task<bool> SaveAll();
         Task<IEnumerable<User>> GetUsers();
         Task<User> GetUser(int id);
+        Task<IEnumerable<Business>> GetBusinesses();
+        Task<Business> GetBusiness(int id);
+        Task<Photo> GetPhoto(int id);
     }
 }

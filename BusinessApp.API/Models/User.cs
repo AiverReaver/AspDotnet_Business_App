@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace BusinessApp.API.Models
@@ -10,6 +11,10 @@ namespace BusinessApp.API.Models
         public byte[] PasswordSalt { get; set; }
         public string Gender { get; set; }
         public string ContactNumber { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime LastActive { get; set; }
+        public ProfilePhoto Photo { get; set; }
         public ICollection<Business> Businesses { get; set; }
     }
 }

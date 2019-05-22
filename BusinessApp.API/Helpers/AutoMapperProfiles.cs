@@ -9,10 +9,29 @@ namespace BusinessApp.API.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<User, UserForListDto>();
-            CreateMap<User, UserForDetailedDto>();
-            CreateMap<Business, BusinessesForDetailedDto>();
-            CreateMap<Photo, PhotosForDetailedDto>();
+            CreateMap<User, UserForListDto>()
+                .ForMember(dest => dest.PhotoUrl, options => {
+                    options.MapFrom(src => src.Photo.Url);
+                });
+            CreateMap<User, UserForDetailedDto>()
+                .ForMember(dest => dest.PhotoUrl, options => {
+                    options.MapFrom(src => src.Photo.Url);
+                })
+                .ForMember(dest => dest.Age, options => {
+                    options.MapFrom((src, dest) => src.DateOfBirth.CalculateAge());
+                });
+            CreateMap<Business, BusinessForListDto>()
+                .ForMember(dest => dest.PhotoUrl, options => {
+                    options.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
+                });
+            CreateMap<Business, BusinessForDetailedDto>()
+                .ForMember(dest => dest.PhotoUrl, options => {
+                    options.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
+                });
+            CreateMap<Photo, PhotoForDetailedDto>();
+            CreateMap<ProfilePhoto, ProfilePhotoForDetailedDto>();
+            CreateMap<Photo, PhotoForReturnDto>();
+            CreateMap<PhotoForCreationDto, Photo>();
         }
     }
 }
