@@ -11,6 +11,7 @@ namespace BusinessApp.API.Models
         public string OfficeNumber { get; set; }
         public User User { get; set; }
         public int UserId { get; set; }
+        public Video Video { get; set; }
         public ICollection<Photo> Photos { get; set; }
     }
 }

@@ -32,6 +32,8 @@ namespace BusinessApp.API.Helpers
             CreateMap<ProfilePhoto, ProfilePhotoForDetailedDto>();
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
+            CreateMap<Video, VideoForReturnDto>();
+            CreateMap<VideoForCreationDto, Video>();
         }
     }
 }

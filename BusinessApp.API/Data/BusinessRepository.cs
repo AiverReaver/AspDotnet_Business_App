@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BusinessApp.API.Models;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,7 @@ namespace BusinessApp.API.Data
         {
             var business = await _context.Businesses
                                     .Include(p => p.Photos)
+                                    .Include(v => v.Video)
                                     .FirstOrDefaultAsync(b => b.Id == id);
             
             return business;
@@ -46,6 +48,11 @@ namespace BusinessApp.API.Data
             var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
 
             return photo;
+        }
+
+        public async Task<Photo> GetPhotoForUser(int businessId)
+        {
+            return await _context.Photos.Where(u => u.BusinessId == businessId).FirstOrDefaultAsync(p => p.IsMain);
         }
 
         public async Task<User> GetUser(int id)
@@ -70,9 +77,21 @@ namespace BusinessApp.API.Data
             return users;
         }
 
+        public async Task<Video> GetVideo(int id)
+        {
+            var photo = await _context.Videos.FirstOrDefaultAsync(v => v.Id == id);
+
+            return photo;
+        }
+
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public void Update<T>(T entity) where T : class
+        {
+            _context.Update(entity);
         }
     }
 }

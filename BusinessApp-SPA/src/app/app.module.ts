@@ -35,7 +35,7 @@ import { BusinessCardComponent } from './business/business-card/business-card.co
       HttpClientModule,
       FormsModule,
       BsDropdownModule.forRoot(),
-      RouterModule.forRoot(appRoutes)
+      RouterModule.forRoot(appRoutes),
    ],
    providers: [
       AuthService,
