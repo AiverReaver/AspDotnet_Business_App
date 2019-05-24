@@ -1,0 +1,61 @@
+<div class="container mt-4">
+  <div class="row">
+    <h1>{{ business.name }}</h1>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <img src="{{ business.photoUrl }}" alt="{{ business.name }}" class="card-img-top img-thumbnail">
+        <div class="card-body">
+          <div>
+            <strong>Location:</strong>
+            <p>{{ business.address }}</p>
+          </div>
+          <div>
+            <strong>About:</strong>
+            <p>{{ business.description }}</p>
+          </div>
+          <!-- <div>
+            <strong>Last Active:</strong>
+            <p>{{ business.lastActive }}</p>
+          </div>
+          <div>
+            <strong>Member Since:</strong>
+            <p>{{ business.created }}</p>
+          </div> -->
+        </div>
+        <div class="card-footer">
+          <div class="btn-group d-flex">
+            <button class="btn btn-primary w-100">Call</button>
+            <button class="btn btn-success w-100">Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="tab-panel">
+        <tabset class="member-tabset">
+          <tab heading="About {{ business.name }}">
+            <h4>Description</h4>
+            <p>{{ business.description}}</p>
+            <h4>Address</h4>
+            <p>{{ business.address }}</p>
+          </tab>
+          <tab heading="Contacts">
+            <h4>OfficeNumber</h4>
+            <p>{{ business.officeNumber }}</p>
+          </tab>
+          <tab heading="Photos">
+            <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+          </tab>
+          <tab heading="Videos">
+            Videos go here
+          </tab>
+          <tab heading="Messages">
+            <p>Messages will go here</p>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>

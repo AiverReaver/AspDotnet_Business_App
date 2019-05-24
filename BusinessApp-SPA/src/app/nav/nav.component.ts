@@ -20,8 +20,10 @@ export class NavComponent implements OnInit {
   login() {
     this.authService.login(this.model).subscribe(next => {
       this.alertify.success('Logged in Successfully');
+      this.model = {};
     }, error => {
       this.alertify.error(error);
+      this.model.password = '';
     }, () => {
       this.router.navigate(['/business']);
     });

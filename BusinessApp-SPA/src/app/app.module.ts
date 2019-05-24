@@ -2,8 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
+import { JwtModule } from '@auth0/angular-jwt';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -19,6 +21,15 @@ import { UserService } from './_services/user.service';
 import { BusinessListComponent } from './business/business-list/business-list.component';
 import { BusinessService } from './_services/business.service';
 import { BusinessCardComponent } from './business/business-card/business-card.component';
+import { BusinessDetailComponent } from './business/business-detail/business-detail.component';
+import { BusinessDetailResolver } from './_resolver/business-detail.resolver';
+import { BusinessListResolver } from './_resolver/business-list.resolver';
+import { BusinessEditComponent } from './business/business-edit/business-edit.component';
+
+
+export function tokenGetter() {
+   return localStorage.getItem('token');
+}
 
 @NgModule({
    declarations: [
@@ -28,14 +39,25 @@ import { BusinessCardComponent } from './business/business-card/business-card.co
       RegisterComponent,
       MessagesComponent,
       BusinessListComponent,
-      BusinessCardComponent
+      BusinessCardComponent,
+      BusinessDetailComponent,
+      BusinessEditComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
       BsDropdownModule.forRoot(),
+      TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
+      NgxGalleryModule,
+      JwtModule.forRoot({
+         config: {
+            tokenGetter,
+            whitelistedDomains: ['localhost:5000'],
+            blacklistedRoutes: ['localhost:5000/api/auth']
+         }
+      })
    ],
    providers: [
       AuthService,
@@ -43,7 +65,9 @@ import { BusinessCardComponent } from './business/business-card/business-card.co
       AlertifyService,
       AuthGuard,
       UserService,
-      BusinessService
+      BusinessService,
+      BusinessDetailResolver,
+      BusinessListResolver
    ],
    bootstrap: [
       AppComponent

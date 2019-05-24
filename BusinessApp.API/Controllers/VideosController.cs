@@ -95,5 +95,38 @@ namespace BusinessApp.API.Controllers
             return BadRequest("Cloud not add the video");
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePhoto(int businessId, int id)
+        {
+            var businessFromRepo = await _repo.GetBusiness(businessId);
+
+            if (businessFromRepo.UserId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var videoFromRepo = await _repo.GetVideo(id);
+
+            if (videoFromRepo.PublicId != null)
+            {
+                var deleteParams = new DeletionParams(videoFromRepo.PublicId);
+
+                var result = _cloudinary.Destroy(deleteParams);
+
+                if (result.Result == "ok")
+                {
+                    _repo.Delete(videoFromRepo);
+                }
+            }
+            
+            if (videoFromRepo.PublicId == null)
+            {
+                _repo.Delete(videoFromRepo);
+            }
+
+            if (await _repo.SaveAll())
+                return Ok();
+
+            return BadRequest("Failed to delete the photo");
+        }
+
     }
 }
