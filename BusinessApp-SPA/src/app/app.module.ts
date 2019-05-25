@@ -25,6 +25,9 @@ import { BusinessDetailComponent } from './business/business-detail/business-det
 import { BusinessDetailResolver } from './_resolver/business-detail.resolver';
 import { BusinessListResolver } from './_resolver/business-list.resolver';
 import { BusinessEditComponent } from './business/business-edit/business-edit.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserEditResolver } from './_resolver/user-edit.resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 
 export function tokenGetter() {
@@ -41,7 +44,8 @@ export function tokenGetter() {
       BusinessListComponent,
       BusinessCardComponent,
       BusinessDetailComponent,
-      BusinessEditComponent
+      BusinessEditComponent,
+      UserEditComponent
    ],
    imports: [
       BrowserModule,
@@ -55,7 +59,7 @@ export function tokenGetter() {
          config: {
             tokenGetter,
             whitelistedDomains: ['localhost:5000'],
-            blacklistedRoutes: ['localhost:5000/api/auth']
+            blacklistedRoutes: ['loacalhost:5000/api/auth']
          }
       })
    ],
@@ -67,7 +71,9 @@ export function tokenGetter() {
       UserService,
       BusinessService,
       BusinessDetailResolver,
-      BusinessListResolver
+      BusinessListResolver,
+      UserEditResolver,
+      PreventUnsavedChanges
    ],
    bootstrap: [
       AppComponent

@@ -8,6 +8,9 @@ import { BusinessDetailResolver } from './_resolver/business-detail.resolver';
 import { BusinessListComponent } from './business/business-list/business-list.component';
 import { BusinessListResolver } from './_resolver/business-list.resolver';
 import { BusinessEditComponent } from './business/business-edit/business-edit.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserEditResolver } from './_resolver/user-edit.resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 
 export const appRoutes: Routes = [
@@ -23,7 +26,10 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             { path: 'messages', component: MessagesComponent},
-            { path: 'business/edit', component: BusinessEditComponent}
+            { path: 'business/edit/:id', component: BusinessEditComponent,
+                canDeactivate: [PreventUnsavedChanges]},
+            { path: 'user/edit', component: UserEditComponent,
+                resolve: { user: UserEditResolver}, canDeactivate: [PreventUnsavedChanges]}
         ]
     },
     { path: '**', redirectTo: '', pathMatch: 'full' }

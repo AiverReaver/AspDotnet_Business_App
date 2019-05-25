@@ -28,6 +28,7 @@ namespace BusinessApp.API.Helpers
                 .ForMember(dest => dest.PhotoUrl, options => {
                     options.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
                 });
+            CreateMap<UserForUpdateDto, User>();
             CreateMap<Photo, PhotoForDetailedDto>();
             CreateMap<ProfilePhoto, ProfilePhotoForDetailedDto>();
             CreateMap<Photo, PhotoForReturnDto>();
