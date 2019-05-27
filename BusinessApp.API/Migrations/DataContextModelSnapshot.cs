@@ -62,27 +62,6 @@ namespace BusinessApp.API.Migrations
                     b.ToTable("Photos");
                 });
 
-            modelBuilder.Entity("BusinessApp.API.Models.ProfilePhoto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("DateAdded");
-
-                    b.Property<string>("PublicId");
-
-                    b.Property<string>("Url");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("ProfilePhoto");
-                });
-
             modelBuilder.Entity("BusinessApp.API.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -143,14 +122,6 @@ namespace BusinessApp.API.Migrations
                     b.HasOne("BusinessApp.API.Models.Business", "Business")
                         .WithMany("Photos")
                         .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("BusinessApp.API.Models.ProfilePhoto", b =>
-                {
-                    b.HasOne("BusinessApp.API.Models.User", "User")
-                        .WithOne("Photo")
-                        .HasForeignKey("BusinessApp.API.Models.ProfilePhoto", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

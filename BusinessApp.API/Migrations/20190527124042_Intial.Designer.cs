@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190520081639_AddedPhotosClass")]
-    partial class AddedPhotosClass
+    [Migration("20190527124042_Intial")]
+    partial class Intial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -71,7 +71,13 @@ namespace BusinessApp.API.Migrations
 
                     b.Property<string>("ContactNumber");
 
+                    b.Property<DateTime>("Created");
+
+                    b.Property<DateTime>("DateOfBirth");
+
                     b.Property<string>("Gender");
+
+                    b.Property<DateTime>("LastActive");
 
                     b.Property<byte[]>("PasswordHash");
 
@@ -82,6 +88,27 @@ namespace BusinessApp.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("BusinessApp.API.Models.Video", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("BusinessId");
+
+                    b.Property<DateTime>("DateAdded");
+
+                    b.Property<string>("PublicId");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusinessId")
+                        .IsUnique();
+
+                    b.ToTable("Videos");
                 });
 
             modelBuilder.Entity("BusinessApp.API.Models.Business", b =>
@@ -97,6 +124,14 @@ namespace BusinessApp.API.Migrations
                     b.HasOne("BusinessApp.API.Models.Business", "Business")
                         .WithMany("Photos")
                         .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BusinessApp.API.Models.Video", b =>
+                {
+                    b.HasOne("BusinessApp.API.Models.Business", "Business")
+                        .WithOne("Video")
+                        .HasForeignKey("BusinessApp.API.Models.Video", "BusinessId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

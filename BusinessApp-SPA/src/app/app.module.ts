@@ -28,6 +28,8 @@ import { BusinessEditComponent } from './business/business-edit/business-edit.co
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserEditResolver } from './_resolver/user-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { PhotoEditorComponent } from './business/photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 export function tokenGetter() {
@@ -45,7 +47,8 @@ export function tokenGetter() {
       BusinessCardComponent,
       BusinessDetailComponent,
       BusinessEditComponent,
-      UserEditComponent
+      UserEditComponent,
+      PhotoEditorComponent
    ],
    imports: [
       BrowserModule,
@@ -55,6 +58,7 @@ export function tokenGetter() {
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       NgxGalleryModule,
+      FileUploadModule,
       JwtModule.forRoot({
          config: {
             tokenGetter,

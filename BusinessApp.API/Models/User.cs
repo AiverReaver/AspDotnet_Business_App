@@ -14,7 +14,6 @@ namespace BusinessApp.API.Models
         public DateTime DateOfBirth { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
-        public ProfilePhoto Photo { get; set; }
         public ICollection<Business> Businesses { get; set; }
     }
 }

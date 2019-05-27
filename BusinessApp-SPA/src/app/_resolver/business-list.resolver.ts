@@ -15,7 +15,7 @@ export class BusinessListResolver implements Resolve<Business[]> {
         return this.businessService.getBusinesses().pipe(
             catchError(error => {
                 this.alertify.error('Problem Retriving data');
-                this.route.navigate(['/resgister']);
+                this.route.navigate(['/register']);
                 return of(null);
             })
         );

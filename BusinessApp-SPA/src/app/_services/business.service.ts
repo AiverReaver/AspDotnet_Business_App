@@ -21,4 +21,19 @@ export class BusinessService {
     return this.http.get<Business>(this.baseUrl + 'businesses/' + id);
   }
 
+  updateBusiness(id: number, business: Business) {
+    return this.http.put(this.baseUrl + 'businesses/' + id, business);
+  }
+
+  setMainPhoto(businessId: number, id: number) {
+    return this.http.post(
+      this.baseUrl + 'businesses/' + businessId + '/photos/' + id + '/setMain',
+      {}
+    );
+  }
+
+  deletePhoto(businessId: number, id: number) {
+    return this.http.delete(this.baseUrl + 'businesses/' + businessId + '/photos/' + id);
+  }
+
 }

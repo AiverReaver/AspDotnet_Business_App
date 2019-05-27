@@ -1,4 +1,5 @@
 import { Business } from './Business';
+import { Photo } from './Photo';
 
 export interface User {
     id: number;
@@ -8,7 +9,6 @@ export interface User {
     lastActive: string;
     country: string;
     city: string;
-    photoUrl: string;
     age?: number;
     contactNumber?: string;
     businesses?: Business[];

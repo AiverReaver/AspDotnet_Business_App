@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessApp.API.Data;
@@ -43,6 +45,22 @@ namespace BusinessApp.API.Controllers
             var businessToReturn = _mapper.Map<BusinessForDetailedDto>(business);
 
             return Ok(businessToReturn);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, BusinessForUpdateDto businessForUpdateDto)
+        {   
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var businessFromRepo = await _repo.GetBusiness(id);
+
+            _mapper.Map(businessForUpdateDto, businessFromRepo);
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Updating Business {id} failed to save");
         }
     }
 }

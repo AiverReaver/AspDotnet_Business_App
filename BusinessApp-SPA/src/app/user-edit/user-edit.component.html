@@ -12,13 +12,8 @@
   </div>
   <div class="row">
     <div class="col-sm-4">
-      <div class="card">
-        <img
-          src="{{ user.photoUrl }}"
-          alt="{{ user.username }}"
-          class="card-img-top img-thumbnail"
-        />
-        <div class="card-body">
+      <div class="card mt-3">
+        <div class="card-body mt-4">
           <div>
             <strong>Location:</strong>
             <p>{{ user.contactNumber }}</p>
@@ -80,12 +75,6 @@
             >
               Save Changes
             </button>
-          </tab>
-          <tab heading="Edit Photos">
-            <!-- <app-photo-editor
-              [photos]="user.photos"
-              (getMemberPhotoChange)="updateMainPhoto($event)"
-            ></app-photo-editor> -->
           </tab>
         </tabset>
       </div>

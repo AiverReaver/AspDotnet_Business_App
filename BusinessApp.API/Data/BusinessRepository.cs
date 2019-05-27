@@ -50,7 +50,7 @@ namespace BusinessApp.API.Data
             return photo;
         }
 
-        public async Task<Photo> GetPhotoForUser(int businessId)
+        public async Task<Photo> GetPhotoForBusiness(int businessId)
         {
             return await _context.Photos.Where(u => u.BusinessId == businessId).FirstOrDefaultAsync(p => p.IsMain);
         }
@@ -58,7 +58,6 @@ namespace BusinessApp.API.Data
         public async Task<User> GetUser(int id)
         {
             var user = await _context.Users
-                                .Include(p => p.Photo)
                                 .Include(b => b.Businesses)
                                 .ThenInclude(p => p.Photos)
                                 .FirstOrDefaultAsync(u => u.Id == id);
@@ -66,10 +65,19 @@ namespace BusinessApp.API.Data
             return user;
         }
 
+        public async Task<IEnumerable<Business>> GetUserBusinesses(int id)
+        {
+            var businesses = (await _context.Users
+                                    .Include(b => b.Businesses)
+                                    .ThenInclude(p => p.Photos)
+                                    .FirstOrDefaultAsync(u => u.Id == id)).Businesses;
+
+            return businesses;
+        }
+
         public async Task<IEnumerable<User>> GetUsers()
         {
             var users = await _context.Users
-                                    .Include(p => p.Photo)
                                     .Include(b => b.Businesses)
                                     .ThenInclude(p => p.Photos)
                                     .ToListAsync();

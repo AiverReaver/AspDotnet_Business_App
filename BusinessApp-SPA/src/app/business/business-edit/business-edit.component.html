@@ -1,3 +1,85 @@
-<p>
-  business-edit works!
-</p>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-4">
+      <h1>Edit your {{ business.name }}</h1>
+    </div>
+    <div class="col-sm-8">
+      <div *ngIf="editForm.dirty" class="alert alert-info">
+        <strong>Information:</strong> You have made changes. Any Unsaved changes
+        will be lost!
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <img
+          src="{{ business.photoUrl }}"
+          alt="{{ business.name }}"
+          class="card-img-top img-thumbnail"
+        />
+        <div class="card-body">
+          <div>
+            <strong>Location:</strong>
+            <p>{{ business.name }}</p>
+          </div>
+          <div>
+            <strong>Office number:</strong>
+            <p>{{ business.officeNumber }}</p>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button
+            class="btn btn-success btn-block"
+            form="editForm"
+            [disabled]="!editForm.dirty"
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="tab-panel">
+        <tabset class="member-tabset">
+          <tab heading="Edit Profile">
+            <form #editForm="ngForm" id="editForm" (ngSubmit)="updateBusiness()">
+              <h4>Description</h4>
+              <textarea
+                name="description"
+                rows="6"
+                class="form-control"
+                [(ngModel)]="business.description"
+              ></textarea>
+              <h4>OfficeNumber</h4>
+              <div class="form-inline">
+                <input
+                  class="form-control"
+                  type="text"
+                  name="officeNumber"
+                  [(ngModel)]="business.officeNumber"
+                />
+              </div>
+              <h4>Location Details</h4>
+              <div class="form-inline">
+                <label for="city">Address</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="city"
+                  [(ngModel)]="business.address"
+                />
+              </div>
+            </form>
+          </tab>
+          <tab heading="Edit Photos">
+            <app-photo-editor
+              [photos]="business.photos"
+              (getMemberPhotoChange)="updateMainPhoto($event)"
+            ></app-photo-editor>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>

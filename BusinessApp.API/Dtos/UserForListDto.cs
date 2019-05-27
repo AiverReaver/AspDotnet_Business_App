@@ -9,6 +9,6 @@ namespace BusinessApp.API.Dtos
         public string Gender { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
-        public string PhotoUrl { get; set; }
+
     }
 }

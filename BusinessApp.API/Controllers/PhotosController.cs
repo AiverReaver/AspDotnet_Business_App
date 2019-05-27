@@ -51,7 +51,7 @@ namespace BusinessApp.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPhotoForUser(int businessId,
+        public async Task<IActionResult> AddPhotoForBusiness(int businessId,
             [FromForm]PhotoForCreationDto photoForCreationDto)
         {
             var businessFromRepo = await _repo.GetBusiness(businessId);
@@ -114,7 +114,7 @@ namespace BusinessApp.API.Controllers
             if (photoFromRepo.IsMain)
                 return BadRequest("This is already the main photo");
 
-            var currentMainPhoto = await _repo.GetPhotoForUser(businessFromRepo.UserId);
+            var currentMainPhoto = await _repo.GetPhotoForBusiness(businessFromRepo.UserId);
             currentMainPhoto.IsMain = false;
 
             photoFromRepo.IsMain = true;

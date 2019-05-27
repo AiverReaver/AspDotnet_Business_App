@@ -12,10 +12,11 @@ namespace BusinessApp.API.Data
         Task<bool> SaveAll();
         Task<IEnumerable<User>> GetUsers();
         Task<User> GetUser(int id);
+        Task<IEnumerable<Business>> GetUserBusinesses(int id);
         Task<IEnumerable<Business>> GetBusinesses();
         Task<Business> GetBusiness(int id);
         Task<Photo> GetPhoto(int id);
-        Task<Photo> GetPhotoForUser(int businessId);
+        Task<Photo> GetPhotoForBusiness(int businessId);
         Task<Video> GetVideo(int id);
     }
 }

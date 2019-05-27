@@ -27,7 +27,7 @@ export const appRoutes: Routes = [
         children: [
             { path: 'messages', component: MessagesComponent},
             { path: 'business/edit/:id', component: BusinessEditComponent,
-                canDeactivate: [PreventUnsavedChanges]},
+                resolve: { business: BusinessDetailResolver }, canDeactivate: [PreventUnsavedChanges]},
             { path: 'user/edit', component: UserEditComponent,
                 resolve: { user: UserEditResolver}, canDeactivate: [PreventUnsavedChanges]}
         ]

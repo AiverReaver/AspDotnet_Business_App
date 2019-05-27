@@ -43,6 +43,19 @@ namespace BusinessApp.API.Controllers
             return Ok(userToReturn);
         }
 
+        [HttpGet("{id}/businesses")]
+        public async Task<IActionResult> GetUserBusinesses(int id)
+        {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var businessesFromRepo = await _repo.GetUserBusinesses(id);
+
+            var businessForReturn = _mapper.Map<IEnumerable<BusinessForListDto>>(businessesFromRepo);
+
+            return Ok(businessForReturn);
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto userForUpdateDto)
         {   

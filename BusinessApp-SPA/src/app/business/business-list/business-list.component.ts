@@ -22,12 +22,4 @@ export class BusinessListComponent implements OnInit {
     });
   }
 
-  // loadBusinesses() {
-  //   this.businessService.getBusinesses().subscribe((businesses: Business[]) => {
-  //     this.businesses = businesses;
-  //   }, error => {
-  //     this.alertify.error(error);
-  //   });
-  // }
-
 }
