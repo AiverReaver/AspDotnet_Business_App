@@ -12,7 +12,6 @@ import { BusinessService } from 'src/app/_services/business.service';
   styleUrls: ['./business-edit.component.css']
 })
 export class BusinessEditComponent implements OnInit {
-
   @ViewChild('editForm') editForm: NgForm;
   business: Business;
   photoUrl: string;
@@ -54,7 +53,7 @@ export class BusinessEditComponent implements OnInit {
   }
 
   updateMainPhoto(photoUrl) {
-    // this.business.photoUrl = photoUrl;
+    this.business.photoUrl = photoUrl;
   }
 
 }

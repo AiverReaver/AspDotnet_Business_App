@@ -1,4 +1,5 @@
 import { Photo } from './Photo';
+import { Video } from './Video';
 
 export interface Business {
     id: number;
@@ -8,4 +9,5 @@ export interface Business {
     officeNumber: string;
     photoUrl: string;
     photos?: Photo[];
+    video?: Video;
 }

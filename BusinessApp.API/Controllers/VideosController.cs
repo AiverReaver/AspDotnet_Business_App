@@ -77,12 +77,25 @@ namespace BusinessApp.API.Controllers
                 }
             }
 
+            if ( businessFromRepo.Video != null && businessFromRepo.Video.PublicId != null)
+            {
+                var deleteParams = new DeletionParams(businessFromRepo.Video.PublicId)
+                                        {
+                                            ResourceType = ResourceType.Video
+                                        };
+
+                var result = _cloudinary.Destroy(deleteParams);
+
+                if (result.Result == "ok")
+                {
+                    _repo.Delete(businessFromRepo.Video);
+                }
+            }
+
             videoForCreationDto.Url = uploadResult.Uri.ToString();
             videoForCreationDto.PublicId = uploadResult.PublicId;
 
             var video = _mapper.Map<VideoModel>(videoForCreationDto);
-
-            _repo.Delete(businessFromRepo.Video);
 
             businessFromRepo.Video = video;
 

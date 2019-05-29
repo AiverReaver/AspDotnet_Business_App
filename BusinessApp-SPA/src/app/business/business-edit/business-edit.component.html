@@ -74,6 +74,7 @@
           </tab>
           <tab heading="Edit Photos">
             <app-photo-editor
+              [businessId]="business.id"
               [photos]="business.photos"
               (getMemberPhotoChange)="updateMainPhoto($event)"
             ></app-photo-editor>

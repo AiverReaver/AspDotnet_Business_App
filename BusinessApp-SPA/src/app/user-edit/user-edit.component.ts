@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { User } from '../_models/user';
+import { User } from '../_models/User';
 import { ActivatedRoute } from '@angular/router';
 import { AlertifyService } from '../_services/alertify.service';
 import { NgForm } from '@angular/forms';
@@ -12,11 +12,11 @@ import { AuthService } from '../_services/Auth.service';
   styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
-  @ViewChild('editForm') editform: NgForm;
+  @ViewChild('editForm') editForm: NgForm;
   user: User;
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
-    if (this.editform.dirty) {
+    if (this.editForm.dirty) {
       $event.returnValue = true;
     }
   }
@@ -33,7 +33,7 @@ export class UserEditComponent implements OnInit {
   updateUser() {
     this.userService.updateUser(this.authService.decodedToken.nameid, this.user).subscribe(next => {
       this.alertify.success('Profile Update Successfully');
-      this.editform.reset(this.user);
+      this.editForm.reset(this.user);
     }, error => {
       this.alertify.error(error);
     });

@@ -12,5 +12,6 @@ namespace BusinessApp.API.Dtos
         public string OfficeNumber { get; set; }
         public string PhotoUrl { get; set; }
         public ICollection<PhotoForDetailedDto> Photos { get; set; }
+        public VideoForReturnDto Video { get; set; }
     }
 }

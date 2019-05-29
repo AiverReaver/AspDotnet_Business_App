@@ -1,5 +1,4 @@
 import { Business } from './Business';
-import { Photo } from './Photo';
 
 export interface User {
     id: number;

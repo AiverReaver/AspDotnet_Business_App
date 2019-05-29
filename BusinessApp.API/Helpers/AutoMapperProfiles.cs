@@ -23,6 +23,7 @@ namespace BusinessApp.API.Helpers
                     options.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
                 });
             CreateMap<UserForUpdateDto, User>();
+            CreateMap<UserForRegisterDto, User>();
             CreateMap<BusinessForUpdateDto, Business>();
             CreateMap<Photo, PhotoForDetailedDto>();
             CreateMap<Photo, PhotoForReturnDto>();

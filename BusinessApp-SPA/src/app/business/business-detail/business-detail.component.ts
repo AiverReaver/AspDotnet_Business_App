@@ -5,6 +5,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 
+
 @Component({
   selector: 'app-business-detail',
   templateUrl: './business-detail.component.html',
@@ -15,6 +16,7 @@ export class BusinessDetailComponent implements OnInit {
   business: Business;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+  cld: any;
 
   constructor(private businessService: BusinessService, private alertify: AlertifyService,
               private route: ActivatedRoute) { }
@@ -23,6 +25,7 @@ export class BusinessDetailComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.business = data.business;
     });
+    console.log(this.business);
 
     this.galleryOptions = [
       {
@@ -30,8 +33,8 @@ export class BusinessDetailComponent implements OnInit {
         height: '500px',
         imagePercent: 100,
         thumbnailsColumns: 4,
-        imageAnimation: NgxGalleryAnimation.Slide,
-        preview: false
+        imageAnimation: NgxGalleryAnimation.Rotate,
+        preview: true
       }
     ];
 
