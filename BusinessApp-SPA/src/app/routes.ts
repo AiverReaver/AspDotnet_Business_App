@@ -14,10 +14,8 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 
 export const appRoutes: Routes = [
-    { path: '', component: HomeComponent },
+    { path: '', component: HomeComponent, resolve: { businesses: BusinessListResolver} },
     { path: 'register', component: RegisterComponent },
-    { path: 'business', component: BusinessListComponent,
-        resolve: { businesses: BusinessListResolver}},
     { path: 'business/:id', component: BusinessDetailComponent,
         resolve: { business: BusinessDetailResolver}},
     {

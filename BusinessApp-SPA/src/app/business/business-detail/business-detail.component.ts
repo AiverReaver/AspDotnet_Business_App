@@ -34,7 +34,15 @@ export class BusinessDetailComponent implements OnInit {
         imagePercent: 100,
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Rotate,
+        imageAutoPlay: true,
+        imageAutoPlayInterval: 6000,
+        imageAutoPlayPauseOnHover: true,
         preview: true
+      },
+      {
+        breakpoint: 800,
+        imageAutoPlay: false,
+        width : '100%'
       }
     ];
 

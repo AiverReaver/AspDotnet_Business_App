@@ -7,6 +7,7 @@ export interface Business {
     description?: string;
     address?: string;
     officeNumber: string;
+    userId: number;
     photoUrl: string;
     photos?: Photo[];
     video?: Video;

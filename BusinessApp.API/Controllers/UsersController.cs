@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BusinessApp.API.Data;
 using BusinessApp.API.Dtos;
+using BusinessApp.API.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,11 +25,21 @@ namespace BusinessApp.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers([FromQuery]PageParams pageParams)
         {
-            var users = await _repo.GetUsers();
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var userFromRepo = await _repo.GetUser(currentUserId);
+
+            pageParams.UserId = currentUserId;
+            pageParams.Gender = userFromRepo.Gender;
+
+            var users = await _repo.GetUsers(pageParams);
 
             var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
+
+            Response.AddPagination(users.CurrentPage, users.PageSize,
+                users.TotalCount, users.TotalPages);
 
             return Ok(usersToReturn);
         }

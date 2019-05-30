@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BusinessApp.API.Data;
 using BusinessApp.API.Dtos;
+using BusinessApp.API.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,11 +27,14 @@ namespace BusinessApp.API.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> GetBusinesses()
+        public async Task<IActionResult> GetBusinesses([FromQuery]PageParams pageParams)
         {
-            var businesses = await _repo.GetBusinesses();
+            var businesses = await _repo.GetBusinesses(pageParams);
 
             var businessesToReturn = _mapper.Map<IEnumerable<BusinessForListDto>>(businesses);
+
+            Response.AddPagination(businesses.CurrentPage, businesses.PageSize,
+                businesses.TotalCount, businesses.TotalPages);
 
             return Ok(businessesToReturn);
 

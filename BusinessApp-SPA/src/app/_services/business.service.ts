@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Business } from '../_models/Business';
+import { PaginatedResult } from '../_models/pagination';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +15,32 @@ export class BusinessService {
 
   constructor(private http: HttpClient) { }
 
-  getBusinesses(): Observable<Business[]> {
-    return this.http.get<Business[]>(this.baseUrl + 'businesses');
+  getBusinesses(page?, itemsPerPage?, userParams?): Observable<PaginatedResult<Business[]>> {
+    const paginatedResult = new PaginatedResult<Business[]>();
+
+    let params = new HttpParams();
+
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
+    if (userParams != null) {
+      params = params.append('searchQuery', userParams.searchQuery);
+      params = params.append('userId', userParams.userId);
+    }
+
+    return this.http.get<Business[]>(this.baseUrl + 'businesses', { observe: 'response', params})
+      .pipe(
+        map(response => {
+          paginatedResult.result = response.body;
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          }
+
+          return paginatedResult;
+        })
+      );
   }
 
   getBusiness(id: number): Observable<Business> {

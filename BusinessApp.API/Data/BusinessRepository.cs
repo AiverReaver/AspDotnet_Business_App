@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessApp.API.Helpers;
 using BusinessApp.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,13 +35,26 @@ namespace BusinessApp.API.Data
             return business;
         }
 
-        public async Task<IEnumerable<Business>> GetBusinesses()
+        public async Task<PagedList<Business>> GetBusinesses(PageParams pageParams)
         {
-            var businesses = await _context.Businesses
-                                        .Include(p => p.Photos)
-                                        .ToListAsync();
+            var businesses = _context.Businesses
+                                .Include(p => p.Photos)
+                                .AsQueryable();
 
-            return businesses;
+            if (!string.IsNullOrEmpty(pageParams.SearchQuery))
+            {
+                businesses = businesses
+                                .Where(u => 
+                                u.Name.ToLower().Contains(pageParams.SearchQuery.ToLower()) 
+                                || u.Address.ToLower().Contains(pageParams.SearchQuery.ToLower()));
+            }
+
+            if (pageParams.UserId != 0)
+            {
+                businesses = businesses.Where(b => b.Id == pageParams.UserId);
+            }
+
+            return await PagedList<Business>.CreateAsync(businesses, pageParams.PageNumber, pageParams.PageSize);
         }
 
         public async Task<Photo> GetPhoto(int id)
@@ -68,21 +82,25 @@ namespace BusinessApp.API.Data
         public async Task<IEnumerable<Business>> GetUserBusinesses(int id)
         {
             var businesses = (await _context.Users
-                                    .Include(b => b.Businesses)
-                                    .ThenInclude(p => p.Photos)
-                                    .FirstOrDefaultAsync(u => u.Id == id)).Businesses;
+                                        .Include(b => b.Businesses)
+                                        .ThenInclude(p => p.Photos)
+                                        .FirstOrDefaultAsync(u => u.Id == id)).Businesses;
 
             return businesses;
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<PagedList<User>> GetUsers(PageParams pageParams)
         {
-            var users = await _context.Users
-                                    .Include(b => b.Businesses)
-                                    .ThenInclude(p => p.Photos)
-                                    .ToListAsync();
+            var users = _context.Users
+                            .Include(b => b.Businesses)
+                            .ThenInclude(p => p.Photos)
+                            .AsQueryable();
+            
+            users = users.Where(u => u.Id != pageParams.UserId);
 
-            return users;
+            users = users.Where(u => u.Gender == pageParams.Gender);
+
+            return await PagedList<User>.CreateAsync(users, pageParams.PageNumber, pageParams.PageSize);
         }
 
         public async Task<Video> GetVideo(int id)

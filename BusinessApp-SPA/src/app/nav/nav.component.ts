@@ -25,7 +25,7 @@ export class NavComponent implements OnInit {
       this.alertify.error(error);
       this.model.password = '';
     }, () => {
-      this.router.navigate(['/business']);
+      this.router.navigate(['']);
     });
   }
 

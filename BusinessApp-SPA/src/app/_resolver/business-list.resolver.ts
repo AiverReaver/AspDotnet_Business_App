@@ -8,11 +8,14 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class BusinessListResolver implements Resolve<Business[]> {
+    pageNumber = 1;
+    pageSize = 5;
+
     constructor(private businessService: BusinessService, private route: Router,
                 private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<Business[]> {
-        return this.businessService.getBusinesses().pipe(
+        return this.businessService.getBusinesses(this.pageNumber, this.pageSize).pipe(
             catchError(error => {
                 this.alertify.error('Problem Retriving data');
                 this.route.navigate(['/register']);
