@@ -6,6 +6,7 @@ import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule } fr
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -25,11 +26,13 @@ import { BusinessDetailComponent } from './business/business-detail/business-det
 import { BusinessDetailResolver } from './_resolver/business-detail.resolver';
 import { BusinessListResolver } from './_resolver/business-list.resolver';
 import { BusinessEditComponent } from './business/business-edit/business-edit.component';
-import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolver/user-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './business/photo-editor/photo-editor.component';
-import { FileUploadModule } from 'ng2-file-upload';
+import { BusinessCreateComponent } from './business/business-create/business-create.component';
+import { UserBusinessListComponent } from './user/user-business-list/user-business-list.component';
+import { UserBusinessListResolver } from './_resolver/user-business-list.resolver';
 
 
 export function tokenGetter() {
@@ -47,6 +50,8 @@ export function tokenGetter() {
       BusinessCardComponent,
       BusinessDetailComponent,
       BusinessEditComponent,
+      BusinessCreateComponent,
+      UserBusinessListComponent,
       UserEditComponent,
       PhotoEditorComponent
    ],
@@ -80,6 +85,7 @@ export function tokenGetter() {
       BusinessDetailResolver,
       BusinessListResolver,
       UserEditResolver,
+      UserBusinessListResolver,
       PreventUnsavedChanges
    ],
    bootstrap: [

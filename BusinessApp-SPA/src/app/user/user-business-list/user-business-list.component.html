@@ -1,0 +1,15 @@
+<div class="container mt-5">
+  <h3>You Businesses</h3>
+  
+  <div class="row justify-content-center">
+    <div>
+      <div class="container mt-5">
+        <div class="row">
+          <div *ngFor="let business of businesses" class="col-lg col-md col-sm col">
+            <app-business-card [business]="business"></app-business-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
