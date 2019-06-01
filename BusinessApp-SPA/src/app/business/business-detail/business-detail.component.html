@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="card">
-        <img src="{{ business.photoUrl }}" alt="{{ business.name }}" class="card-img-top img-thumbnail">
+        <img src="{{ business.photoUrl || '../../assets/noImageUploaded.png' }}" alt="{{ business.name }}" class="card-img-top img-thumbnail">
         <div class="card-body">
           <div>
             <strong>Location:</strong>
@@ -51,13 +51,14 @@
             </div>
           </tab>
           <tab heading="Videos">
-            <div class="embed-responsive embed-responsive-16by9">
+            <div *ngIf="business.video != null" class="embed-responsive embed-responsive-16by9">
               <video
                 class="embed-responsive-item"
                 controls
-                src="{{ business.video.url }}">
+                src="{{ business.video?.url }}">
               </video>
             </div>
+            <div *ngIf="business.video == null" >No Video Uploaded Yet</div>
           </tab>
           <tab heading="Messages">
             <p>Messages will go here</p>

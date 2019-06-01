@@ -29,9 +29,8 @@ export const appRoutes: Routes = [
             { path: 'messages', component: MessagesComponent},
             { path: 'businesses/list', component: UserBusinessListComponent,
                 resolve: { businesses: UserBusinessListResolver }},
-            { path: 'business/create', component: BusinessCreateComponent,
-                canDeactivate: [PreventUnsavedChanges]},
-            { path: 'business/edit/:id', component: BusinessEditComponent,
+            { path: 'businesses/create', component: BusinessCreateComponent},
+            { path: 'businesses/edit/:id', component: BusinessEditComponent,
                 resolve: { business: BusinessDetailResolver }, canDeactivate: [PreventUnsavedChanges]},
             { path: 'user/edit', component: UserEditComponent,
                 resolve: { user: UserEditResolver}, canDeactivate: [PreventUnsavedChanges]}

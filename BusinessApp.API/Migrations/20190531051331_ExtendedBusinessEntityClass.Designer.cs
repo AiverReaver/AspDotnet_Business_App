@@ -3,14 +3,16 @@ using System;
 using BusinessApp.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BusinessApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190531051331_ExtendedBusinessEntityClass")]
+    partial class ExtendedBusinessEntityClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,48 +44,6 @@ namespace BusinessApp.API.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Businesses");
-                });
-
-            modelBuilder.Entity("BusinessApp.API.Models.PaytmOrder", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("BANKNAME");
-
-                    b.Property<string>("BANKTXNID");
-
-                    b.Property<string>("GATEWAYNAME");
-
-                    b.Property<string>("MID");
-
-                    b.Property<string>("ORDERID");
-
-                    b.Property<string>("PAYMENTMODE");
-
-                    b.Property<string>("REFUNDAMT");
-
-                    b.Property<string>("RESPCODE");
-
-                    b.Property<string>("RESPMSG");
-
-                    b.Property<string>("STATUS");
-
-                    b.Property<string>("TXNAMOUNT");
-
-                    b.Property<string>("TXNDATE");
-
-                    b.Property<string>("TXNID");
-
-                    b.Property<string>("TXNTYPE");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("PaytmOrders");
                 });
 
             modelBuilder.Entity("BusinessApp.API.Models.Photo", b =>
@@ -161,14 +121,6 @@ namespace BusinessApp.API.Migrations
                 {
                     b.HasOne("BusinessApp.API.Models.User", "User")
                         .WithMany("Businesses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("BusinessApp.API.Models.PaytmOrder", b =>
-                {
-                    b.HasOne("BusinessApp.API.Models.User", "User")
-                        .WithMany("PaytmOrders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

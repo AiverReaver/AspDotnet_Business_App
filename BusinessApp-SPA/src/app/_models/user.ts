@@ -6,7 +6,6 @@ export interface User {
     gender: string;
     created: string;
     lastActive: string;
-    country: string;
     city: string;
     age?: number;
     contactNumber?: string;

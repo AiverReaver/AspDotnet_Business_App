@@ -8,6 +8,7 @@ using BusinessApp.API.Dtos;
 using BusinessApp.API.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace BusinessApp.API.Controllers
 {
@@ -18,6 +19,7 @@ namespace BusinessApp.API.Controllers
     {
         private readonly IBusinessRepository _repo;
         private readonly IMapper _mapper;
+
         public UsersController(IBusinessRepository repo, IMapper mapper)
         {
             _mapper = mapper;

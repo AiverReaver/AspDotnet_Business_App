@@ -11,5 +11,6 @@ namespace BusinessApp.API.Data
         public DbSet<Business> Businesses { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Video> Videos { get; set; }
+        public DbSet<PaytmOrder> PaytmOrders { get; set; }
     }
 }

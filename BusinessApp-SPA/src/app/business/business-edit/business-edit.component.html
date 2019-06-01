@@ -14,7 +14,7 @@
     <div class="col-sm-4">
       <div class="card">
         <img
-          src="{{ business.photoUrl }}"
+          src="{{ business.photoUrl || '../../assets/noImageUploaded.png' }}"
           alt="{{ business.name }}"
           class="card-img-top img-thumbnail"
         />
@@ -30,7 +30,7 @@
         </div>
         <div class="card-footer">
           <button
-            class="btn btn-success btn-block"
+            class="btn btn-raised btn-success btn-block"
             form="editForm"
             [disabled]="!editForm.dirty"
           >
@@ -41,44 +41,48 @@
     </div>
     <div class="col-sm-8">
       <div class="tab-panel">
-        <tabset class="member-tabset">
+        <tabset #staticTabs class="member-tabset">
           <tab heading="Edit Profile">
             <form #editForm="ngForm" id="editForm" (ngSubmit)="updateBusiness()">
-              <h4>Description</h4>
-              <textarea
+              <div class="form-group">
+                <label for="description" class="bmd-label-floating"><b> Description </b></label>
+                <textarea
                 name="description"
                 rows="6"
                 class="form-control"
                 [(ngModel)]="business.description"
-              ></textarea>
-              <h4>OfficeNumber</h4>
-              <div class="form-inline">
-                <input
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="officeNumber" class="bmd-label-floating"><b> Contact Number </b></label>
+                <div class="form-inline">
+                  <input
                   class="form-control"
                   type="text"
                   name="officeNumber"
                   [(ngModel)]="business.officeNumber"
-                />
+                  />
+                </div>
               </div>
-              <h4>Location Details</h4>
-              <div class="form-inline">
-                <label for="city">Address</label>
+              <div class="form-group">
+                <label for="city" class="bmd-label-floating" style="color:black"><b> Address </b></label>
                 <input
-                  class="form-control"
-                  type="text"
-                  name="city"
-                  [(ngModel)]="business.address"
+                class="form-control"
+                type="text"
+                name="city"
+                [(ngModel)]="business.address"
                 />
               </div>
             </form>
           </tab>
-          <tab heading="Edit Photos">
+          <tab heading="Edit Photos and videos">
             <app-photo-editor
               [businessId]="business.id"
               [photos]="business.photos"
               (getMemberPhotoChange)="updateMainPhoto($event)"
             ></app-photo-editor>
           </tab>
+
         </tabset>
       </div>
     </div>

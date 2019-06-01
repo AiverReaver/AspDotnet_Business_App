@@ -51,6 +51,10 @@ export class BusinessService {
     return this.http.get<Business>(this.baseUrl + 'businesses/' + id);
   }
 
+  createBusiness(business: Business) {
+    return this.http.post<Business>(this.baseUrl + 'businesses', business);
+  }
+
   updateBusiness(id: number, business: Business) {
     return this.http.put(this.baseUrl + 'businesses/' + id, business);
   }

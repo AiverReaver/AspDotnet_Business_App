@@ -1,6 +1,6 @@
 <div class="card mb-4">
   <div class="card-img-wrapper">
-    <img src="{{ business.photoUrl }}" alt="{{ business.name }}" class="card-img-top">
+    <img src="{{ business.photoUrl || '../../assets/noImageUploaded.png' }}" alt="{{ business.name }}" class="card-img-top">
   </div>
   <div class="card-body p-1">
     <h6 class="card-title text-center mb-1"><i class="fa fa-business"></i> 

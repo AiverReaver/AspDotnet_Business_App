@@ -25,6 +25,7 @@ namespace BusinessApp.API.Helpers
             CreateMap<UserForUpdateDto, User>();
             CreateMap<UserForRegisterDto, User>();
             CreateMap<BusinessForUpdateDto, Business>();
+            CreateMap<BusinessForCreationDto, Business>();
             CreateMap<Photo, PhotoForDetailedDto>();
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();

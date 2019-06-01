@@ -14,6 +14,7 @@ namespace BusinessApp.API.Models
         public DateTime DateOfBirth { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
+        public ICollection<PaytmOrder> PaytmOrders { get; set; }
         public ICollection<Business> Businesses { get; set; }
     }
 }

@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/_services/Auth.service';
 import { BusinessService } from 'src/app/_services/business.service';
+import { TabsetComponent } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-business-edit',
@@ -12,6 +13,7 @@ import { BusinessService } from 'src/app/_services/business.service';
   styleUrls: ['./business-edit.component.css']
 })
 export class BusinessEditComponent implements OnInit {
+  @ViewChild('staticTabs') staticTabs: TabsetComponent;
   @ViewChild('editForm') editForm: NgForm;
   business: Business;
   photoUrl: string;
@@ -32,6 +34,12 @@ export class BusinessEditComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.business = data.business;
+    });
+
+    this.route.queryParams.subscribe(params => {
+      if (params.isCreated) {
+        this.staticTabs.tabs[1].active = true;
+      }
     });
     // this.authService.currentPhotoUrl.subscribe(
     //   photoUrl => (this.photoUrl = photoUrl)

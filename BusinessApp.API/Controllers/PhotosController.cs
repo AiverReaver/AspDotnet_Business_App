@@ -88,6 +88,7 @@ namespace BusinessApp.API.Controllers
                 photo.IsMain = true;
 
             businessFromRepo.Photos.Add(photo);
+            businessFromRepo.IsPublishable = businessFromRepo.Photos.Any();
 
             if (await _repo.SaveAll())
             {

@@ -1,3 +1,63 @@
-<p>
-  business-create works!
-</p>
+<div class="container mt-5 col-lg-4 col-md-6 col-sm-12 col-12">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <h2 class="text-center text-primary">Create Business</h2>
+      <hr>
+    
+      <div class="form-group">
+        <label for="name" class="bmd-label-floating">Name</label>
+        <input type="text" 
+        [ngClass]="{ 'is-invalid': registerForm.get('name').errors 
+          && registerForm.get('name').touched }"
+        class="form-control" 
+        formControlName="name">
+        <div class="invalid-feedback">Please choose your name for your business</div>
+      </div>
+    
+      <div class="form-group">
+        <label for="address" class="bmd-label-floating">Address</label>
+        <input [ngClass]="{'is-invalid': registerForm.get('address').errors && registerForm.get('address').touched}" class="form-control"
+          formControlName="address" type="text">
+        <div class="invalid-feedback">Address is required</div>
+      </div>
+
+      <div class="form-group">
+        <label for="landmark" class="bmd-label-floating">Landmark</label>
+        <input [ngClass]="{'is-invalid': registerForm.get('landmark').errors && registerForm.get('landmark').touched}" class="form-control"
+          formControlName="landmark" type="text">
+        <div class="invalid-feedback">Landmark is required</div>
+      </div>
+    
+      <div class="form-group">
+        <label for="officeNumber" class="bmd-label-floating">Mobile Number</label>
+        <input [ngClass]="{'is-invalid': registerForm.get('officeNumber').errors && registerForm.get('officeNumber').touched}" class="form-control"
+          formControlName="officeNumber" type="text" >
+        <div class="invalid-feedback"
+          *ngIf="registerForm.get('officeNumber').hasError('required') 
+          && registerForm.get('officeNumber').touched">Contact number is required</div>
+        <div class="invalid-feedback" 
+          *ngIf="registerForm.get('officeNumber').hasError('minlength') 
+          && registerForm.get('officeNumber').touched">Contact number must be atleast 10 characters long
+        </div>
+        <div class="invalid-feedback" 
+          *ngIf="registerForm.get('officeNumber').hasError('pattern') 
+          && registerForm.get('officeNumber').touched">Only number allowed
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="description" class="bmd-label-floating">Description</label>
+        <textarea class="form-control" cols="30" rows="6"
+          formControlName="description"
+          [ngClass]="{'is-invalid': registerForm.get('description').errors && registerForm.get('description').touched}"></textarea>
+        <div class="invalid-feedback">Description is required</div>
+      </div>
+    
+      <div class="form-group text-center">
+        <button class="btn btn-raised btn-success" [disabled]="!registerForm.valid" type="submit">Next</button>
+      </div>
+      
+    </form>
+    
+  </div>
+  
+  
