@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace BusinessApp.API.Models
 {
-    public class User
+    public class User : IdentityUser<int>
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
         public string Gender { get; set; }
         public string ContactNumber { get; set; }
         public DateTime DateOfBirth { get; set; }
@@ -16,5 +13,6 @@ namespace BusinessApp.API.Models
         public DateTime LastActive { get; set; }
         public ICollection<PaytmOrder> PaytmOrders { get; set; }
         public ICollection<Business> Businesses { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
     }
 }
