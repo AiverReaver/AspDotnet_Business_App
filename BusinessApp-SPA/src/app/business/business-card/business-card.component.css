@@ -11,6 +11,10 @@
     transition-timing-function: ease-out;
 }
 
+.logo {
+    object-fit: cover;
+}
+
 .card-img-wrapper {
     overflow: hidden;
     position: relative;

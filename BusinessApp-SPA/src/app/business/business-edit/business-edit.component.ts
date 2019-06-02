@@ -17,6 +17,7 @@ export class BusinessEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
   business: Business;
   photoUrl: string;
+  isCreated = false;
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     if (this.editForm.dirty) {
@@ -39,11 +40,9 @@ export class BusinessEditComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params.isCreated) {
         this.staticTabs.tabs[1].active = true;
+        this.isCreated = true;
       }
     });
-    // this.authService.currentPhotoUrl.subscribe(
-    //   photoUrl => (this.photoUrl = photoUrl)
-    // );
   }
 
   updateBusiness() {

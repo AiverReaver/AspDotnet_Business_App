@@ -2,7 +2,7 @@ import { Business } from './Business';
 
 export interface User {
     id: number;
-    username: string;
+    userName: string;
     gender: string;
     created: string;
     lastActive: string;
@@ -10,4 +10,5 @@ export interface User {
     age?: number;
     contactNumber?: string;
     businesses?: Business[];
+    roles?: string[];
 }

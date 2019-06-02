@@ -25,7 +25,6 @@ export class BusinessDetailComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.business = data.business;
     });
-    console.log(this.business);
 
     this.galleryOptions = [
       {

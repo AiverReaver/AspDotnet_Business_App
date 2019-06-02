@@ -20,22 +20,12 @@
         />
         <div class="card-body">
           <div>
-            <strong>Location:</strong>
-            <p>{{ business.name }}</p>
-          </div>
-          <div>
             <strong>Office number:</strong>
             <p>{{ business.officeNumber }}</p>
           </div>
         </div>
         <div class="card-footer">
-          <button
-            class="btn btn-raised btn-success btn-block"
-            form="editForm"
-            [disabled]="!editForm.dirty"
-          >
-            Save Changes
-          </button>
+          
         </div>
       </div>
     </div>
@@ -69,13 +59,26 @@
                 <input
                 class="form-control"
                 type="text"
-                name="city"
+                name="address"
                 [(ngModel)]="business.address"
                 />
               </div>
             </form>
+            <button
+              class="btn btn-raised btn-success btn-block"
+              form="editForm"
+              [disabled]="!editForm.dirty"
+              >
+                Save Changes
+            </button>
           </tab>
           <tab heading="Edit Photos and videos">
+            <div *ngIf="isCreated" class="alert alert-info">
+              <strong>Information:</strong> Please upload atleat one photo.
+            </div>
+            <div class="alert alert-info">
+              <strong>Information:</strong> You can only upload one video. If you upload video your previous video will be deleted.
+            </div>
             <app-photo-editor
               [businessId]="business.id"
               [photos]="business.photos"

@@ -16,7 +16,6 @@ import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
 import { appRoutes } from './routes';
-import { MessagesComponent } from './messages/messages.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { UserService } from './_services/user.service';
 import { BusinessListComponent } from './business/business-list/business-list.component';
@@ -33,6 +32,11 @@ import { PhotoEditorComponent } from './business/photo-editor/photo-editor.compo
 import { BusinessCreateComponent } from './business/business-create/business-create.component';
 import { UserBusinessListComponent } from './user/user-business-list/user-business-list.component';
 import { UserBusinessListResolver } from './_resolver/user-business-list.resolver';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { HasRoleDirective } from './_directives/hasRole.directive';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
+import { AdminService } from './_services/admin.service';
 
 
 export function tokenGetter() {
@@ -45,7 +49,6 @@ export function tokenGetter() {
       NavComponent,
       HomeComponent,
       RegisterComponent,
-      MessagesComponent,
       BusinessListComponent,
       BusinessCardComponent,
       BusinessDetailComponent,
@@ -53,7 +56,11 @@ export function tokenGetter() {
       BusinessCreateComponent,
       UserBusinessListComponent,
       UserEditComponent,
-      PhotoEditorComponent
+      PhotoEditorComponent,
+      AdminPanelComponent,
+      HasRoleDirective,
+      UserManagementComponent,
+      PhotoManagementComponent
    ],
    imports: [
       BrowserModule,
@@ -82,6 +89,7 @@ export function tokenGetter() {
       AuthGuard,
       UserService,
       BusinessService,
+      AdminService,
       BusinessDetailResolver,
       BusinessListResolver,
       UserEditResolver,

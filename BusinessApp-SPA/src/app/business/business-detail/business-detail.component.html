@@ -8,26 +8,8 @@
         <img src="{{ business.photoUrl || '../../assets/noImageUploaded.png' }}" alt="{{ business.name }}" class="card-img-top img-thumbnail">
         <div class="card-body">
           <div>
-            <strong>Location:</strong>
+            <strong>Address:</strong>
             <p>{{ business.address }}</p>
-          </div>
-          <div>
-            <strong>About:</strong>
-            <p>{{ business.description }}</p>
-          </div>
-          <!-- <div>
-            <strong>Last Active:</strong>
-            <p>{{ business.lastActive }}</p>
-          </div>
-          <div>
-            <strong>Member Since:</strong>
-            <p>{{ business.created }}</p>
-          </div> -->
-        </div>
-        <div class="card-footer">
-          <div class="btn-group d-flex">
-            <button class="btn btn-primary w-100">Call</button>
-            <button class="btn btn-success w-100">Message</button>
           </div>
         </div>
       </div>
@@ -35,16 +17,6 @@
     <div class="col-sm-8">
       <div class="tab-panel">
         <tabset class="member-tabset">
-          <tab heading="About {{ business.name }}">
-            <h4>Description</h4>
-            <p>{{ business.description}}</p>
-            <h4>Address</h4>
-            <p>{{ business.address }}</p>
-          </tab>
-          <tab heading="Contacts">
-            <h4>OfficeNumber</h4>
-            <p>{{ business.officeNumber }}</p>
-          </tab>
           <tab heading="Photos">
             <div class="col-lg-2">
               <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
@@ -60,9 +32,17 @@
             </div>
             <div *ngIf="business.video == null" >No Video Uploaded Yet</div>
           </tab>
-          <tab heading="Messages">
-            <p>Messages will go here</p>
+          <tab heading="Contacts">
+            <h4>Office Number</h4>
+            <p>{{ business.officeNumber }}</p>
           </tab>
+          <tab heading="About {{ business.name }}">
+            <h4>Description</h4>
+            <p>{{ business.description}}</p>
+            <h4>Address</h4>
+            <p>{{ business.address }}</p>
+          </tab>
+        
         </tabset>
       </div>
     </div>

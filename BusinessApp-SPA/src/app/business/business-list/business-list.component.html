@@ -22,17 +22,17 @@
           </label>
       </div>
     
-      <button type="submit" class="btn btn-primary" style="margin-left:10px">Apply Filters</button>
-      <button type="button" class="btn btn-info" style="margin-left:10px" (click)="resetFilters()">Reset Filter</button>
+      <button type="submit" class="btn btn-primary mt-5" >Apply Filters</button>
+      <button type="button" class="btn btn-info mt-5" (click)="resetFilters()">Reset Filter</button>
     </form>
     <br>
   <div>
     <div class="row justify-content-center">
       <div>
-        <div class="container mt-5">
+        <div class="container mt-3">
           <div class="row">
-            <div *ngFor="let business of businesses" [ngClass]="isMyBusiness || userParams.userId != 0 ? 'col-lg col-md col-sm col' : 'col-lg-3 col-md-4 col-sm-6 col-6'">
-              <app-business-card [business]="business"></app-business-card>
+            <div *ngFor="let business of businesses" [ngClass]="businesses.length == 1 || userParams.userId != 0 ? 'col-lg col-md col-sm col' : 'col-lg-4 col-md-6 col-sm-6 col-6'">
+              <app-business-card [routeUrl]="'/business'" [business]="business"></app-business-card>
             </div>
           </div>
         </div>

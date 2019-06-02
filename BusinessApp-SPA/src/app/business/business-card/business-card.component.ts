@@ -8,6 +8,7 @@ import { Business } from 'src/app/_models/Business';
 })
 export class BusinessCardComponent implements OnInit {
   @Input() business: Business;
+  @Input() routeUrl: string;
 
   constructor() { }
 

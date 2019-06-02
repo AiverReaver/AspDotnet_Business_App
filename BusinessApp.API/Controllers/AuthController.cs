@@ -60,7 +60,7 @@ namespace BusinessApp.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            var user = await _userManger.FindByNameAsync(userForLoginDto.Username);
+            var user = await _userManger.FindByNameAsync(userForLoginDto.UserName);
 
             var result = await _signInManager
                 .CheckPasswordSignInAsync(user, userForLoginDto.Password, false);
@@ -68,11 +68,11 @@ namespace BusinessApp.API.Controllers
             if (result.Succeeded)
             {
                 var appUser = await _userManger.Users.Include(b => b.Businesses)
-                    .FirstOrDefaultAsync(u => u.NormalizedUserName == userForLoginDto.Username.ToUpper());
+                    .FirstOrDefaultAsync(u => u.NormalizedUserName == userForLoginDto.UserName.ToUpper());
 
                 return Ok(new
                 {
-                    token = GenerateToken(appUser)
+                    token = GenerateToken(appUser).Result
                 });
             }
 

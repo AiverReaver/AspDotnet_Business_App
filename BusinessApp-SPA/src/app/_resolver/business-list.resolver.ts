@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 @Injectable()
 export class BusinessListResolver implements Resolve<Business[]> {
     pageNumber = 1;
-    pageSize = 5;
+    pageSize = 6;
 
     constructor(private businessService: BusinessService, private route: Router,
                 private alertify: AlertifyService) {}
