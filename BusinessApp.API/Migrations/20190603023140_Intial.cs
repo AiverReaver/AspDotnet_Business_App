@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BusinessApp.API.Migrations
 {
-    public partial class IdentityIntial : Migration
+    public partial class Intial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,7 +46,7 @@ namespace BusinessApp.API.Migrations
                     ContactNumber = table.Column<string>(nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
-                    LastActive = table.Column<DateTime>(nullable: false)
+                    ValidTill = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -170,8 +170,8 @@ namespace BusinessApp.API.Migrations
                     Address = table.Column<string>(nullable: true),
                     OfficeNumber = table.Column<string>(nullable: true),
                     Landmark = table.Column<string>(nullable: true),
-                    IsPublishable = table.Column<bool>(nullable: false),
                     IsPublished = table.Column<bool>(nullable: false),
+                    IsPublishable = table.Column<bool>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -205,7 +205,7 @@ namespace BusinessApp.API.Migrations
                     MID = table.Column<string>(nullable: true),
                     PAYMENTMODE = table.Column<string>(nullable: true),
                     REFUNDAMT = table.Column<string>(nullable: true),
-                    TXNDATE = table.Column<string>(nullable: true)
+                    TXNDATE = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

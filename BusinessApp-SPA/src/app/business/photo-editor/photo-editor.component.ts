@@ -44,10 +44,10 @@ export class PhotoEditorComponent implements OnInit {
         '/photos',
       authToken: 'Bearer ' + localStorage.getItem('token'),
       isHTML5: true,
-      allowedFileType: ['image', 'video', 'document'],
+      allowedFileType: ['image', 'video'],
       removeAfterUpload: true,
       autoUpload: false,
-      maxFileSize: 10 * 1024 * 1024
+      maxFileSize: 80 * 1024 * 1024
     });
 
     this.uploader.onBeforeUploadItem = file => {

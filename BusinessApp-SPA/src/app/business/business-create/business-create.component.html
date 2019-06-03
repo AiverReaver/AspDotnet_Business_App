@@ -1,4 +1,7 @@
 <div class="container mt-5 col-lg-4 col-md-6 col-sm-12 col-12">
+    <button type="button" [routerLink]="[ '/payment']" class="btn btn-raised btn-primary float-right mr-2">
+      Buy Subscription
+    </button>
     <form [formGroup]="registerForm" (ngSubmit)="register()">
       <h2 class="text-center text-primary">Create Business</h2>
       <hr>

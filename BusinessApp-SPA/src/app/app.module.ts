@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -37,6 +38,9 @@ import { HasRoleDirective } from './_directives/hasRole.directive';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { AdminService } from './_services/admin.service';
+import { PaymentService } from './_services/payment.service';
+import { PaymentResolver } from './_resolver/payment.resolver';
+import { PaytmPaymentComponent } from './paytm-payment/paytm-payment.component';
 
 
 export function tokenGetter() {
@@ -60,7 +64,9 @@ export function tokenGetter() {
       AdminPanelComponent,
       HasRoleDirective,
       UserManagementComponent,
-      PhotoManagementComponent
+      PhotoManagementComponent,
+      PaytmPaymentComponent,
+      TimeAgoPipe
    ],
    imports: [
       BrowserModule,
@@ -94,7 +100,9 @@ export function tokenGetter() {
       BusinessListResolver,
       UserEditResolver,
       UserBusinessListResolver,
-      PreventUnsavedChanges
+      PreventUnsavedChanges,
+      PaymentService,
+      PaymentResolver
    ],
    bootstrap: [
       AppComponent

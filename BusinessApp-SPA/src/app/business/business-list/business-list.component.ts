@@ -34,6 +34,7 @@ export class BusinessListComponent implements OnInit {
   resetFilters() {
     this.userParams.searchQuery = '';
     this.userParams.userId = 0;
+    this.isMyBusiness = false;
     this.loadBusinesses();
   }
 

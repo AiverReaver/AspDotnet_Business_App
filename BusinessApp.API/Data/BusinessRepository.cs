@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessApp.API.Helpers;
 using BusinessApp.API.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BusinessApp.API.Data
@@ -10,8 +12,10 @@ namespace BusinessApp.API.Data
     public class BusinessRepository : IBusinessRepository
     {
         private readonly DataContext _context;
-        public BusinessRepository(DataContext context)
+        private readonly UserManager<User> _userManager;
+        public BusinessRepository(DataContext context, UserManager<User> userManager)
         {
+            _userManager = userManager;
             _context = context;
 
         }
@@ -28,6 +32,7 @@ namespace BusinessApp.API.Data
         public async Task<Business> GetBusiness(int id)
         {
             var business = await _context.Businesses
+                                    .IgnoreQueryFilters()
                                     .Include(p => p.Photos)
                                     .Include(v => v.Video)
                                     .FirstOrDefaultAsync(b => b.Id == id);
@@ -38,11 +43,14 @@ namespace BusinessApp.API.Data
         public async Task<PagedList<Business>> GetBusinesses(PageParams pageParams)
         {
             var businesses = _context.Businesses
+                                .Include(u => u.User)
                                 .Include(p => p.Photos)
+                                .Where(b => b.User.ValidTill.CompareTo(DateTime.Now) > 0)
                                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(pageParams.SearchQuery))
             {
+
                 businesses = businesses
                                 .Where(u => 
                                 u.Name.ToLower().Contains(pageParams.SearchQuery.ToLower()) 
@@ -51,7 +59,7 @@ namespace BusinessApp.API.Data
 
             if (pageParams.UserId != 0)
             {
-                businesses = businesses.Where(b => b.Id == pageParams.UserId);
+                businesses = businesses.Where(b => b.UserId == pageParams.UserId);
             }
 
             return await PagedList<Business>.CreateAsync(businesses, pageParams.PageNumber, pageParams.PageSize);
@@ -66,7 +74,9 @@ namespace BusinessApp.API.Data
 
         public async Task<Photo> GetPhotoForBusiness(int businessId)
         {
-            return await _context.Photos.Where(u => u.BusinessId == businessId).FirstOrDefaultAsync(p => p.IsMain);
+            var photo = await _context.Photos.IgnoreQueryFilters().Where(u => u.BusinessId == businessId).FirstOrDefaultAsync(p => p.IsMain);
+
+            return photo;
         }
 
         public async Task<User> GetUser(int id)
@@ -80,12 +90,28 @@ namespace BusinessApp.API.Data
             return user;
         }
 
+        public async Task<Business> GetUserBusiness(int userId, int id)
+        {
+            var business = await _context.Businesses
+                                    .IgnoreQueryFilters()
+                                    .Include(b => b.Photos)
+                                    .Include(b => b.Video)
+                                    .Where(b => b.UserId == id)
+                                    .FirstOrDefaultAsync(b => b.Id == id);
+
+            return business;
+        }
+
         public async Task<IEnumerable<Business>> GetUserBusinesses(int id)
         {
-            var businesses = (await _context.Users
-                                        .Include(b => b.Businesses)
-                                        .ThenInclude(p => p.Photos)
-                                        .FirstOrDefaultAsync(u => u.Id == id)).Businesses;
+
+            var businesses = await _context.Businesses
+                                    .IgnoreQueryFilters()
+                                    .Include(b => b.User)
+                                    .Include(b => b.Photos)
+                                    .Include(b => b.Video)
+                                    .Where(b => b.UserId == id)
+                                    .ToListAsync();
 
             return businesses;
         }
@@ -98,8 +124,6 @@ namespace BusinessApp.API.Data
                             .AsQueryable();
             
             users = users.Where(u => u.Id != pageParams.UserId);
-
-            users = users.Where(u => u.Gender == pageParams.Gender);
 
             return await PagedList<User>.CreateAsync(users, pageParams.PageNumber, pageParams.PageSize);
         }

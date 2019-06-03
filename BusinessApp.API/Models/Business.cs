@@ -10,8 +10,8 @@ namespace BusinessApp.API.Models
         public string Address { get; set; }
         public string OfficeNumber { get; set; }
         public string Landmark { get; set; }
-        public bool IsPublishable { get; set; }
         public bool IsPublished { get; set; }
+        public bool IsPublishable { get; set; } 
         public User User { get; set; }
         public int UserId { get; set; }
         public Video Video { get; set; }

@@ -12,7 +12,6 @@ namespace BusinessApp.API.Helpers
         }
 
         public int UserId { get; set; }
-        public string Gender { get; set; }
         public string SearchQuery { get; set; }
         
     }

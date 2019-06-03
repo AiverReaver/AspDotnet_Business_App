@@ -13,6 +13,8 @@ import { BusinessCreateComponent } from './business/business-create/business-cre
 import { UserBusinessListComponent } from './user/user-business-list/user-business-list.component';
 import { UserBusinessListResolver } from './_resolver/user-business-list.resolver';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { PaymentResolver } from './_resolver/payment.resolver';
+import { PaytmPaymentComponent } from './paytm-payment/paytm-payment.component';
 
 
 export const appRoutes: Routes = [
@@ -33,6 +35,7 @@ export const appRoutes: Routes = [
             { path: 'user/edit', component: UserEditComponent,
                 resolve: { user: UserEditResolver}, canDeactivate: [PreventUnsavedChanges]},
             { path: 'admin', component: AdminPanelComponent, data: { roles: ['Admin', 'Moderator']}},
+            { path: 'payment', component: PaytmPaymentComponent, resolve: { paytmParams: PaymentResolver} }
         ]
     },
     { path: '**', redirectTo: '', pathMatch: 'full' }

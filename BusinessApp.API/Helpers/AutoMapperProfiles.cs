@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using AutoMapper;
 using BusinessApp.API.Dtos;
@@ -17,6 +18,9 @@ namespace BusinessApp.API.Helpers
             CreateMap<Business, BusinessForListDto>()
                 .ForMember(dest => dest.PhotoUrl, options => {
                     options.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
+                })
+                .ForMember(dest => dest.ValidTill, options => {
+                    options.MapFrom((src, dest) => (int)(src.User.ValidTill - DateTime.Now).TotalDays);
                 });
             CreateMap<Business, BusinessForDetailedDto>()
                 .ForMember(dest => dest.PhotoUrl, options => {

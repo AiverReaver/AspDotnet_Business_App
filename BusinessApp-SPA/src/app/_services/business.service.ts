@@ -47,6 +47,10 @@ export class BusinessService {
     return this.http.get<Business[]>(this.baseUrl + 'users/' + userId + '/businesses');
   }
 
+  getUserBusiness(userId: number, id: number): Observable<Business> {
+    return this.http.get<Business>(this.baseUrl + 'users/' + userId + '/businesses/' + id);
+  }
+
   getBusiness(id: number): Observable<Business> {
     return this.http.get<Business>(this.baseUrl + 'businesses/' + id);
   }

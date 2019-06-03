@@ -1,3 +1,4 @@
+using System;
 using BusinessApp.API.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -33,6 +34,8 @@ namespace BusinessApp.API.Data
                     .HasForeignKey(ur => ur.UserId)
                     .IsRequired();
             });
+
+            builder.Entity<Business>().HasQueryFilter(b => b.IsPublishable);
         }
     }
 }

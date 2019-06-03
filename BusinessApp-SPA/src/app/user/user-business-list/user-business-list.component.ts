@@ -14,8 +14,8 @@ export class UserBusinessListComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.businesses = data.businesses;
-      console.log(data.businesses);
     });
+    console.log(this.businesses);
   }
 
 }

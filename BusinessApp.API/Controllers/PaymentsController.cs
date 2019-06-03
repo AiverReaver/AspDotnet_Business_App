@@ -44,7 +44,7 @@ namespace BusinessApp.API.Controllers
             // This is the staging value. Production value is available in your dashboard
             String industryTypeId = "Retail";
             // This is the staging value. Production value is available in your dashboard
-            String callbackUrl = $"http://bd4626a6.ngrok.io/api/payments/{userId}";
+            String callbackUrl = $"http://43590713.ngrok.io/api/payments/{userId}";
             paytmParams.Add("MID", merchantMid);
             paytmParams.Add("CHANNEL_ID", channelId);
             paytmParams.Add("WEBSITE", website);
@@ -65,11 +65,23 @@ namespace BusinessApp.API.Controllers
         public async Task<IActionResult> PaytmCallBack(int userId,[FromForm]PaytmOrder paytmOrder)
         {
             var userFromRepo = await _repo.GetUser(userId);
-            
-            userFromRepo.PaytmOrders.Add(paytmOrder);
 
-            if (await _repo.SaveAll())
-                return Redirect("http://localhost:4200");
+            if (paytmOrder.STATUS == "TXN_SUCCESS")
+            {
+                userFromRepo.PaytmOrders.Add(paytmOrder);
+
+                if (userFromRepo.ValidTill.CompareTo(DateTime.Now) > 0)
+                {
+                    userFromRepo.ValidTill = userFromRepo.ValidTill.AddMonths(1);
+                }
+                else 
+                {
+                    userFromRepo.ValidTill = DateTime.Now.AddMonths(1);
+                }
+
+                if (await _repo.SaveAll())
+                    return Redirect("http://localhost:5000");
+            }
 
             return BadRequest("Something went Worng");
         }

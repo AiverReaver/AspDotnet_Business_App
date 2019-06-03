@@ -14,6 +14,7 @@ namespace BusinessApp.API.Data
         Task<PagedList<User>> GetUsers(PageParams pageParams);
         Task<User> GetUser(int id);
         Task<IEnumerable<Business>> GetUserBusinesses(int id);
+        Task<Business> GetUserBusiness(int userId, int id);
         Task<PagedList<Business>> GetBusinesses(PageParams pageParams);
         Task<Business> GetBusiness(int id);
         Task<Photo> GetPhoto(int id);

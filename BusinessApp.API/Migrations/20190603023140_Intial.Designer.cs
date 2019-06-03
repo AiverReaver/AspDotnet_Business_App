@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190601142256_IdentityIntial")]
-    partial class IdentityIntial
+    [Migration("20190603023140_Intial")]
+    partial class Intial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,7 +73,7 @@ namespace BusinessApp.API.Migrations
 
                     b.Property<string>("TXNAMOUNT");
 
-                    b.Property<string>("TXNDATE");
+                    b.Property<DateTime>("TXNDATE");
 
                     b.Property<string>("TXNID");
 
@@ -158,8 +158,6 @@ namespace BusinessApp.API.Migrations
 
                     b.Property<string>("Gender");
 
-                    b.Property<DateTime>("LastActive");
-
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -182,6 +180,8 @@ namespace BusinessApp.API.Migrations
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
+
+                    b.Property<DateTime>("ValidTill");
 
                     b.HasKey("Id");
 

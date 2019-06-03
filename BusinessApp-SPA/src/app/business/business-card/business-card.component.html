@@ -7,7 +7,7 @@
     <h6 class="card-title text-center mb-1"><i class="fa fa-business"></i> 
       {{ business.name }}
     </h6>
-    <p class="card-tect card-muted text-center">{{ business.description | slice:0:80 }}...</p>
+    <p class="card-tect card-muted text-center">{{ business.description | slice:0:100 }}...</p>
     <a class="btn btn-primary stretched-link" [routerLink]="[ routeUrl, business.id ]">More info
       <i class="fa fa-arrow-right"></i>  
     </a>

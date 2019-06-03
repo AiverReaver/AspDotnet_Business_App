@@ -9,6 +9,7 @@ export interface Business {
     officeNumber: string;
     userId: number;
     photoUrl: string;
+    validTill: number;
     photos?: Photo[];
     video?: Video;
 }

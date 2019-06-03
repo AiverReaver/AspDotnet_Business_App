@@ -42,6 +42,7 @@ export class BusinessCreateComponent implements OnInit {
         this.business = res;
       }, error => {
         this.alertify.error(error);
+        this.router.navigate(['businesses/list']);
       }, () => {
         this.router.navigate(['/businesses/edit/' + this.business.id], { queryParams: { isCreated: true} });
       });

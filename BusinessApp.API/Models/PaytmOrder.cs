@@ -1,3 +1,5 @@
+using System;
+
 namespace BusinessApp.API.Models
 {
     public class PaytmOrder
@@ -18,6 +20,6 @@ namespace BusinessApp.API.Models
         public string MID { get; set; }
         public string PAYMENTMODE { get; set; }
         public string REFUNDAMT { get; set; }
-        public string TXNDATE { get; set; }
+        public DateTime TXNDATE { get; set; }
     }
 }

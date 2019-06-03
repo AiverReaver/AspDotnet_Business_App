@@ -26,6 +26,7 @@ namespace BusinessApp.API.Controllers
             _repo = repo;
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpGet]
         public async Task<IActionResult> GetUsers([FromQuery]PageParams pageParams)
         {
@@ -34,7 +35,6 @@ namespace BusinessApp.API.Controllers
             var userFromRepo = await _repo.GetUser(currentUserId);
 
             pageParams.UserId = currentUserId;
-            pageParams.Gender = userFromRepo.Gender;
 
             var users = await _repo.GetUsers(pageParams);
 
@@ -49,6 +49,9 @@ namespace BusinessApp.API.Controllers
         [HttpGet("{id}", Name="GetUser")]
         public async Task<IActionResult> GetUser(int id)
         {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
             var user = await _repo.GetUser(id);
 
             var userToReturn = _mapper.Map<UserForDetailedDto>(user);
@@ -67,6 +70,19 @@ namespace BusinessApp.API.Controllers
             var businessForReturn = _mapper.Map<IEnumerable<BusinessForListDto>>(businessesFromRepo);
 
             return Ok(businessForReturn);
+        }
+
+        [HttpGet("{userId}/businesses/{id}")]
+        public async Task<IActionResult> GetUserBusiness(int id, int userId)
+        {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            var business = await _repo.GetUserBusiness(userId, id);
+
+            var businessToReturn = _mapper.Map<BusinessForDetailedDto>(business);
+
+            return Ok(businessToReturn);
         }
 
         [HttpPut("{id}")]

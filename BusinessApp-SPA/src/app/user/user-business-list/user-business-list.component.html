@@ -1,7 +1,13 @@
 <div class="container mt-5">
+  <div class="alert alert-info">
+    <strong>Information:</strong> Subscription {{businesses[0].validTill < 0 ? 0 : businesses[0].validTill}} days left
+  </div>
   <h3>You Businesses</h3>
-  <button type="button" class="btn btn-primary bmd-btn-fab">
+  <button type="button" class="btn btn-primary bmd-btn-fab" [routerLink]="['/businesses/create']">
       <i class="fa fa-plus"></i>
+  </button>
+  <button type="button" [routerLink]="[ '/payment']" class="btn btn-raised btn-primary float-right mr-2">
+      Buy Subscription
   </button>
   <div class="row justify-content-center">
     <div>

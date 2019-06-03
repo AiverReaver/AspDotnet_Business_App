@@ -70,9 +70,7 @@ namespace BusinessApp.API.Controllers
                 {
                     var uploadParams = new ImageUploadParams
                     {
-                        File = new FileDescription(file.Name, stream),
-                        Transformation = new Transformation()
-                            .Width(500).Height(500).Crop("fill").Gravity("face")
+                        File = new FileDescription(file.Name, stream)
                     };
 
                     uploadResult = _cloudinary.Upload(uploadParams);
@@ -115,7 +113,7 @@ namespace BusinessApp.API.Controllers
             if (photoFromRepo.IsMain)
                 return BadRequest("This is already the main photo");
 
-            var currentMainPhoto = await _repo.GetPhotoForBusiness(businessFromRepo.UserId);
+            var currentMainPhoto = await _repo.GetPhotoForBusiness(businessFromRepo.Id);
             currentMainPhoto.IsMain = false;
 
             photoFromRepo.IsMain = true;

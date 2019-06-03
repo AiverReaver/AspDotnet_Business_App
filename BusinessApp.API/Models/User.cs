@@ -10,7 +10,7 @@ namespace BusinessApp.API.Models
         public string ContactNumber { get; set; }
         public DateTime DateOfBirth { get; set; }
         public DateTime Created { get; set; }
-        public DateTime LastActive { get; set; }
+        public DateTime ValidTill { get; set; }
         public ICollection<PaytmOrder> PaytmOrders { get; set; }
         public ICollection<Business> Businesses { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }

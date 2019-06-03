@@ -71,7 +71,7 @@ namespace BusinessApp.API.Migrations
 
                     b.Property<string>("TXNAMOUNT");
 
-                    b.Property<string>("TXNDATE");
+                    b.Property<DateTime>("TXNDATE");
 
                     b.Property<string>("TXNID");
 
@@ -156,8 +156,6 @@ namespace BusinessApp.API.Migrations
 
                     b.Property<string>("Gender");
 
-                    b.Property<DateTime>("LastActive");
-
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -180,6 +178,8 @@ namespace BusinessApp.API.Migrations
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
+
+                    b.Property<DateTime>("ValidTill");
 
                     b.HasKey("Id");
 
